@@ -2,7 +2,7 @@
 # Cookbook Name:: apache2
 # Recipe:: mod_php5
 #
-# Copyright 2008-2013, Opscode, Inc.
+# Copyright 2008-2013, Chef Software, Inc.
 # Copyright 2014, OneHealth Solutions, Inc.
 # Copyright 2014, Viverae, Inc.
 #
@@ -56,8 +56,13 @@ when 'suse'
     not_if 'which php'
   end
 when 'freebsd'
-  %w(php5 mod_php5 libxml2).each do |pkg|
+  %w(php56 libxml2).each do |pkg|
     package pkg
+  end
+  %w(mod_php56).each do |pkg|
+    package pkg do
+      options '-I'
+    end
   end
 end unless node['apache']['mod_php5']['install_method'] == 'source'
 
@@ -68,5 +73,5 @@ end
 
 apache_module 'php5' do
   conf true
-  filename 'libphp5.so'
+  filename node['apache']['mod_php5']['so_filename']
 end

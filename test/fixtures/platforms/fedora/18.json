@@ -2,6 +2,7 @@
     "apache": {
         "version": "2.4",
         "package": "httpd",
+        "devel_package": "httpd-devel",
         "binary": "/usr/sbin/httpd",
         "mpm": "prefork",
         "dir": "/etc/httpd",
@@ -36,6 +37,12 @@
         ],
         "mod_auth_openid": {
             "version": "0.8"
+        },
+        "mod_ssl": {
+            "pkg_name": "mod_ssl"
+        },
+        "mod_php5": {
+            "so_filename": "libphp5.so"
         }
     }
 }

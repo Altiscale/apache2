@@ -19,13 +19,13 @@ describe 'apache2::mod_auth_openid' do
         end
 
         if %w(debian ubuntu suse opensuse).include?(platform)
-          %w(automake make g++ apache2-prefork-dev libopkele-dev libopkele3 libtool).each do |package|
+          %W(automake make g++ #{property[:apache][:devel_package]} libopkele-dev libopkele3 libtool).each do |package|
             it "installs package #{package}" do
               expect(chef_run).to install_package(package)
             end
           end
         elsif %w(amazon redhat centos fedora).include?(platform)
-          %w(gcc-c++ httpd-devel curl-devel libtidy libtidy-devel sqlite-devel pcre-devel openssl-devel make libtool).each do |package|
+          %W(gcc-c++ #{property[:apache][:devel_package]} curl-devel libtidy libtidy-devel sqlite-devel pcre-devel openssl-devel make libtool).each do |package|
             it "installs package #{package}" do
               expect(chef_run).to install_package(package)
             end

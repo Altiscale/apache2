@@ -1,8 +1,8 @@
 #
-# Cookbook Name:: apache2
-# Recipe:: iptables
+# Cookbook Name:: apache2_test
+# Recipe:: mod_fastcgi
 #
-# Copyright 2012-2013, Opscode, Inc.
+# Copyright 2012, Chef Software, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -16,6 +16,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-include_recipe 'iptables::default'
 
-iptables_rule 'port_apache'
+include_recipe 'apache2::default'
+include_recipe 'apache2::mod_fastcgi'

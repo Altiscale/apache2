@@ -4,7 +4,7 @@ driver:
 
 provisioner:
   name: chef_solo
-  require_chef_omnibus: 11.16.4
+  require_chef_omnibus: 12.0.3
   data_path: test/fixtures
 
 platforms:
@@ -23,13 +23,10 @@ platforms:
 - name: debian-7.6
   run_list:
   - recipe[apt]
-- name: fedora-20
+- name: fedora-21
   run_list:
   - recipe[yum]
-- name: freebsd-10.0
-#- name: freebsd-9.2
-#  run_list:
-#    - recipe[freebsd::portsnap]
+- name: freebsd-10.1
 # Cannot pull from repo when not in EC2
 #- name: amazon-2014.3
 #  driver:
@@ -47,12 +44,6 @@ platforms:
   driver:
     box: lyte-scientific-6-minimal
     box_url: http://lyte.id.au/vagrant/sl6-64-lyte.box
-- name: opensuse-11.1
-  driver:
-    box: opensuse-11.1
-    box_url: https://s3.amazonaws.com/minesense/vagrant/opensuse-11.1-i586.box
-  run_list:
-  - recipe[zypper]
 - name: opensuse-13.1
   driver:
     box: opscode-opensuse-13.1
@@ -82,6 +73,8 @@ suites:
   - recipe[apache2_test::mod_authz_unlisted_host]
   - recipe[apache2_test::mod_authz_user]
   - recipe[apache2_test::mod_cgi]
+# not supported by apache 2.4 without source compile with non-maintainer patches
+# - recipe[apache2_test::mod_fastcgi]
 # - recipe[apache2_test::mod_dav_svn]
   - recipe[apache2_test::mod_expires]
   - recipe[apache2_test::mod_status_remote]
@@ -102,6 +95,7 @@ suites:
   - recipe[apache2_test::broken_conf]
   - recipe[apache2_test::modules]
   - recipe[apache2_test::mod_cgi]
+  - recipe[apache2_test::mod_fastcgi]
   - recipe[apache2_test::mod_perl]
   - recipe[apache2_test::mod_php5]
 # - recipe[apache2_test::mod_proxy_ajp]

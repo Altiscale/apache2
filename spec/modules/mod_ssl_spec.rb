@@ -17,12 +17,12 @@ describe 'apache2::mod_ssl' do
         end
 
         if %w(amazon redhat centos fedora arch suse).include?(platform)
-          it 'installs package mod_ssl' do
-            expect(chef_run).to install_package('mod_ssl')
+          it "installs package #{property[:apache][:mod_ssl][:pkg_name]}" do
+            expect(chef_run).to install_package(property[:apache][:mod_ssl][:pkg_name])
             expect(chef_run).to_not install_package('not_mod_ssl')
           end
-          let(:package) { chef_run.package('mod_ssl') }
-          it 'triggers a notification by mod_ssl package install to execute[generate-module-list]' do
+          let(:package) { chef_run.package(property[:apache][:mod_ssl][:pkg_name]) }
+          it "triggers a notification by #{property[:apache][:mod_ssl][:pkg_name]} package install to execute[generate-module-list]" do
             expect(package).to notify('execute[generate-module-list]').to(:run)
             expect(package).to_not notify('execute[generate-module-list]').to(:nothing)
           end
@@ -34,10 +34,10 @@ describe 'apache2::mod_ssl' do
 
         it 'creates /etc/apache2/ports.conf' do
           expect(chef_run).to create_template('ssl_ports.conf').with(
-                                  :path => "#{property[:apache][:dir]}/ports.conf",
-                                  :source => 'ports.conf.erb',
-                                  :mode => '0644'
-                              )
+            :path => "#{property[:apache][:dir]}/ports.conf",
+            :source => 'ports.conf.erb',
+            :mode => '0644'
+          )
         end
 
         let(:template) { chef_run.template('ssl_ports.conf') }
