@@ -13,8 +13,13 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-#
+
+# The recipe is removed from runlist in .kitchen.yml saying "not supported by apache 2.4 without source compile with non-maintainer patches"
+
+
+=begin
 require "#{ENV['BUSSER_ROOT']}/../kitchen/data/serverspec_helper"
+
 
 describe 'apache2::mod_fastcgi' do
   expected_module = 'fastcgi'
@@ -36,3 +41,5 @@ describe 'apache2::mod_fastcgi' do
     expect(loaded_modules.stdout).to match(/#{expected_module}_module/)
   end
 end
+=end
+
