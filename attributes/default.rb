@@ -41,6 +41,8 @@ default['apache']['mpm'] =
     'prefork'
   end
 
+default['apache']['package_version'] = nil
+
 default['apache']['version'] =
   case node['platform_family']
   when 'debian'
