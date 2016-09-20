@@ -21,6 +21,11 @@
 apache_module('mpm_prefork') { enable false }
 apache_module('mpm_worker') { enable false }
 
+file "#{node['apache']['dir']}/mods-enabled/authz_default.load" do
+  action :delete
+  not_if { node['apache']['version'] == '2.2' }
+end
+
 apache_module 'mpm_event' do
   conf true
   restart true

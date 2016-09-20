@@ -25,6 +25,7 @@ include_recipe 'apache2::default'
 if platform_family?('rhel', 'fedora', 'suse')
   if 'suse' != node['platform']
     package node['apache']['mod_ssl']['pkg_name'] do
+      version node['apache']['package_version'] unless node['apache']['package_version'].nil?
       notifies :run, 'execute[generate-module-list]', :immediately
     end
   end
